@@ -8,13 +8,15 @@ Thumbs.db
 ehthumbs.db
 ehthumbs_vista.db
 
+# dependencies
+/node_modules
+
 
 # Dump file
 *.stackdump
 
 # Folder config file
 [Dd]esktop.ini
-* /node_modules
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
