@@ -1,8 +1,9 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
 module.exports = {
 	entry: {
-		app:'./src/index.js'
+		app: './src/index.js'
 	},
 	output: {
 		filename: '[name].js',
@@ -15,10 +16,33 @@ module.exports = {
 			loader: 'babel-loader',
 			exclude: '/node_modules/'
 		}, {
+        test: /\.scss$/,
+        use: [
+        	'style-loader',
+          MiniCssExtractPlugin.loader,
+          {
+          	loader: "css-loader",
+          	options: {sourceMap: true }
+          }, {
+          	loader: "postcss-loader",
+          	options: {sourceMap: true, config: {path: 'src/js/postcss.config.js' } }
+          }, {
+          	loader: "sass-loader",
+          	options: {sourceMap: true }
+          }
+      	]
+      }, {
         test: /\.css$/,
         use: [
+         'style-loader',
           MiniCssExtractPlugin.loader,
-          "css-loader"
+          {
+          	loader: "css-loader",
+          	options: {sourceMap: true }
+          }, {
+          	loader: "postcss-loader",
+          	options: {sourceMap: true, config: {path: 'src/js/postcss.config.js' } }
+          }
       	]
       }]
 	},
@@ -27,10 +51,7 @@ module.exports = {
 	},
 	plugins: [
     new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: "[name].css",
-      chunkFilename: "[id].css"
+      filename: "[name].css"
     })
   ],
 }
